@@ -1,30 +1,21 @@
 function domTreeTracer(id) {
-    let fullTree = [];
-    let currentElement = document.getElementById(id);
-    let currentTree = [];
+  let currentElement = document.getElementById(id);
+  let parentElement;
+  const domTree = [];
 
-    while (id > 1) {
-      currentTree = getSiblingNames(currentElement);
-      fullTree.push(currentTree);
-
-      currentElement = currentElement.parentElement;
-      id = currentElement.id;
-      currentTree = [];
-    }
-   
-    if (id === '1') {
-      currentTree.push(currentElement.nodeName);
-      fullTree.push(currentTree);
-    }
+  do {
+    parentElement = currentElement.parentNode;
+    let children = getTagNames(parentElement.children);
+    domTree.push(children)
     
-  return fullTree;
-  }
+    currentElement = parentElement;
 
-function getSiblingNames(node) {
-  let siblings = node.parentElement.childNodes;
-  siblings = [...siblings];
-  siblings = siblings.map(element => element.nodeName);
-  siblings = siblings.filter(node => node !== '#text');
-  return siblings;    
+  } while (parentElement.tagName !== 'BODY');
+  
+  return domTree;
 }
 
+function getTagNames(htmlCollection) {
+  const elementsArray = Array.from(htmlCollection);
+  return elementsArray.map(node => node.nodeName);
+}
