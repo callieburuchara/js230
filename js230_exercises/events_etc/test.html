@@ -1,27 +1,47 @@
 <html>
   <head>
-    <link rel='stylesheet' href="style.css" type='text/css'>
+    <title>Tests</title>
+    <meta charset="utf-8">
+    <style>
+      #red, #blue, #green, #orange {
+        cursor: pointer;
+        color: white;
+        padding: 10px;
+        margin: 10px;
+      }
+    
+      #red {
+        width: 400px;
+        height: 400px;
+        background: red;
+      }
+
+      #blue {
+        width: 200px;
+        height: 200px;
+        background: blue;
+      }
+
+      #orange {
+        width: 100px;
+        height: 100px;
+        background: orange;
+      }
+
+      #green {
+        width: 50px;
+        height: 50px;
+        background: green;
+      }
+    </style>
   </head>
   <body>
-    <form id="selection-filters" method="post" action="#">
-      <select id="animal-classifications">
-        <option value="Classifications" selected>Classifications</option>
-        <option value="Vertebrate">Vertebrate</option>
-        <option value="Warm-blooded">Warm-blooded</option>
-        <option value="Cold-blooded">Cold-blooded</option>
-        <option value="Mammal">Mammal</option>
-        <option value="Bird">Bird</option>
-      </select>
-      <select id="animals">
-        <option value="Animals" selected>Animals</option>
-        <option value="Bear">Bear</option>
-        <option value="Turtle">Turtle</option>
-        <option value="Whale">Whale</option>
-        <option value="Salmon">Salmon</option>
-        <option value="Ostrich">Ostrich</option>    
-      </select>
-      <button id="clear">Clear</button>  
-    </form>
+    <div id="red">Red
+      <div id="blue">Blue</div>
+      <div id="orange">Orange
+        <div id="green">Green</div>
+      </div>
+    </div>
+    <script src="9_events_tracker.js"></script>
   </body>
-  <script src='6_selection.js'></script>
 </html>

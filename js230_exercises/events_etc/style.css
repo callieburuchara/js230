@@ -1,18 +1,11 @@
-main, #sub {
-  padding: 15px;
-}
-main {
-  width: 100%;
-  height: 200px;
-  background: blue;
-  color: white;
+.highlight {
+  border: 1px dotted black;
 }
 
-#sub {
-  position: relative;
-  top: 100px;
-  left: 15px;
-  background: red;
-  height: 50px;
-  width: 50%;
+header li {
+  display: inline-block;
+}
+
+header ul {
+  padding: 0;
 }
