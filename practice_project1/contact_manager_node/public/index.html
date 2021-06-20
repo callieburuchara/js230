@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Manager</title>
+    <script src="javascripts/jquery.js"></script>
+    <script src="javascripts/handlebars.js"></script>
+    <script src='javascripts/functionality.js'></script>
+    <link rel='stylesheet' type='text/css' href='stylesheets/style.css'/>
+  </head>
+  <body>
+    <header>
+      <h1>Contact Manager</h1>
+    </header>
+
+    <div id='main-and-aside'>
+      <main>
+        <div id='top-buttons'>
+          <button id='add-contact'>Add Contact</button>
+          <button id='create-tag'>Create Tag</button>
+          <input id='search' type='text' placeholder='Search'>
+          <label for='filter-by-tag'>Filter By Tag:</label>
+          <select name='filter-by-tag'>
+            <option></option>
+          </select>
+        </div>
+    
+        <div id='contacts'>
+          <script id='template-contacts' type='text/z-handlebars-template'>
+          {{#each contact}}
+          <h2>{{contact.fullName}}</h2>
+
+          <figure>
+            <h2>Callie Buruchara</h2>
+            <p><b>Phone Number:</b></p>
+            <p>3016670191</p>
+            <p><b>Email:</b></p>
+            <p>callieburuchara@gmail.com</p>
+            <button>Edit Contact</button>
+            <button>Delete</button>
+          </figure>
+    
+          <figure>
+            <h2>David Buruchara</h2>
+            <p><b>Phone Number:</b></p>
+            <p>1485590234</p>
+            <p><b>Email:</b></p>
+            <p>davidburuchara@gmail.com</p>
+            <button>Edit Contact</button>
+            <button>Delete</button>
+          </figure>
+    
+          <figure>
+            <h2>Brad Thomas</h2>
+            <p><b>Phone Number:</b></p>
+            <p>1482290234</p>
+            <p><b>Email:</b></p>
+            <p>bradthomas@gmail.com</p>
+            <button>Edit Contact</button>
+            <button>Delete</button>
+          </figure>
+          </script>
+        </div>
+      </main>
+  
+      <div id='overlay'>
+        <h2>Add Contact</h2>
+        <form>
+          <p>
+            <label for='name' required>Full name:</label>
+            <input type='text' name='name'>
+          </p>
+          <p>
+            <label for='email' required>Email Address:</label>
+            <input type='text' name='email'>
+          </p>
+          <p>
+            <label for='number' required>Phone Number:</label>
+            <input type='text' name='number'>
+          </p>
+          <p>
+            <label for ='tag'>Select a tag:</label>
+            <select name='tag'>
+              <option value='None'>None</option>
+              <option value='Friend'>Friend</option>
+              <option value='Family'>Family</option>
+              <option value='Coworker'>Coworker</option>
+            </select>
+        
+          <p>
+            <button type='submit'>Submit</button>
+            <button type='cancel'>Cancel</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  
+  </body>
+</html>

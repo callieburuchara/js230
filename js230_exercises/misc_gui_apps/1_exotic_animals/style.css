@@ -1,0 +1,38 @@
+body {
+  background-color: purple;
+  display: block;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+div {
+  display: block;
+}
+
+figcaption {
+  display: none;
+}
+
+figure {
+  width: 22%;
+  margin-left: 2%;
+  display: inline-block;
+  margin-bottom: 20px;
+  vertical-align: top;
+  padding: 10px;
+  box-sizing: border-box;
+  background: white;
+  border-radius: 3px;
+  position: relative;
+
+}
+
+img {
+  width: 100%;
+}

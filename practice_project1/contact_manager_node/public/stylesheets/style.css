@@ -1,0 +1,89 @@
+body {
+  font-family: Helvetica;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+header {
+  background: #A2DA98;
+  padding: 20px;
+}
+
+div#main-and-aside {
+  margin: auto;
+  position: relative;
+  width: 80%;
+  background: #DEF5DA ;
+  min-width: 400px;
+  height: 1000px;
+  padding-top: 50px;
+  overflow:hidden;
+}
+
+main, #overlay{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
+
+#top-buttons *  {
+  margin: 0 20px 0 20px;
+}
+
+#overlay {
+  background: #DEF5DA ;
+  width: 100%;
+  z-index: 1;
+  padding: 30px;
+  display: none;
+}
+
+#overlay h2 {
+  padding-top: 100px;
+}
+
+form {
+  width: 30%;
+  margin: auto;
+  font-size: 20px;
+}
+
+form button {
+  width: 100%;
+  font-size: 18px;
+}
+
+figure {
+  background: #EEF7ED;
+  width: 20%;
+  padding: 20px;
+  display: inline-block;
+  min-width: 300px;
+}
+
+#contacts {
+  text-align: center;
+}
+
+#top-buttons {
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+#add-contact,
+#create-tag {
+  font-size: 23px;
+  border-radius: 6%;
+  padding: 10px;
+}
+
+button:focus {
+  outline: #196619 solid 5px;
+}
+
+#search {
+  font-size: 23px;
+}
