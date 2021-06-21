@@ -41,8 +41,13 @@ class Contact {
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  let scriptContacts = document.querySelector('#template-contacts');
+  //Templates
+  const scriptContacts = document.querySelector('#template-contacts');
   const templateContacts = Handlebars.compile(scriptContacts.innerHTML);
+
+  //Elements
+  const addContactButton = document.querySelector('#add-contact');
+  const changeSomethingOverlay = document.querySelector('#overlay');
 
   const exampleContext = [
     {fullName: 'Callie Williams', number: 3016670191, 
@@ -52,9 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 
   const compiledHTML = templateContacts({context: exampleContext});
-  // This looks right so far --> it's rendering the HTML properly
-  document.querySelector('#template-contacts').innerHTML = compiledHTML;
-  // Just on this part. How to get the correct HTML to show up in the
-  // right place on the rendered page?
-  debugger;
+  document.querySelector('#contacts').innerHTML = compiledHTML;
+
+  addContactButton.addEventListener('click', () => {
+    debugger;
+    changeSomethingOverlay.style.display = 'visible';
+  });
 });

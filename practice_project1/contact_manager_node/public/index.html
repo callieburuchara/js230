@@ -27,25 +27,11 @@
         </div>
     
         <div id='contacts'>
-          <script id='template-contacts' type="text/x-handlebars-template"> 
-           <h2>HI THERE</h2>
-          {{#each context}}
-            <figure>
-              <h2>{{fullName}}</h2>
-              <p><b>Phone Number:</b></p>
-              <p>{{number}}</p>
-              <p><b>Email:</p></b>
-              <p>{{email}}</p>
-              <button>Edit Contact</button>
-              <button>Delete</button>
-            </figure>
-           {{/each}}
-          </script>
         </div>
       </main>
   
       <div id='overlay'>
-        <h2>Add Contact</h2>
+        <h2 id='title-change-page'>{{verb}} Contact</h2>
         <form>
           <p>
             <label for='name' required>Full name:</label>
@@ -78,4 +64,18 @@
   
   </body>
   <script src='javascripts/functionality.js'></script>
+  <script id='template-contacts' type="text/x-handlebars-template"> 
+    {{#each context}}
+       <figure>
+         <h2>{{fullName}}</h2>
+         <p><b>Phone Number:</b></p>
+         <p>{{number}}</p>
+         <p><b>Email:</p></b>
+         <p>{{email}}</p>
+         <button>Edit Contact</button>
+         <button>Delete</button>
+       </figure>
+     {{/each}}
+   </script>
+
 </html>

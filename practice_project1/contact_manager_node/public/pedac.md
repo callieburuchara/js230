@@ -111,4 +111,7 @@ Overlay Div
   - When a tag is selected, filter the displayed contacts on the page
 
 ## JavaScript
-- Contact object -> functionality and state
+√ Render contacts dynamically 
+- Play around with contact objects
+- Made line 34 on index.html to try to make it change with the appropriate verb
+  Maybe wait on this for later...?
