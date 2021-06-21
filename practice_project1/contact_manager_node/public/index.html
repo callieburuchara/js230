@@ -7,7 +7,6 @@
     <title>Contact Manager</title>
     <script src="javascripts/jquery.js"></script>
     <script src="javascripts/handlebars.js"></script>
-    <script src='javascripts/functionality.js'></script>
     <link rel='stylesheet' type='text/css' href='stylesheets/style.css'/>
   </head>
   <body>
@@ -28,39 +27,19 @@
         </div>
     
         <div id='contacts'>
-          <script id='template-contacts' type='text/z-handlebars-template'>
-          {{#each contact}}
-          <h2>{{contact.fullName}}</h2>
-
-          <figure>
-            <h2>Callie Buruchara</h2>
-            <p><b>Phone Number:</b></p>
-            <p>3016670191</p>
-            <p><b>Email:</b></p>
-            <p>callieburuchara@gmail.com</p>
-            <button>Edit Contact</button>
-            <button>Delete</button>
-          </figure>
-    
-          <figure>
-            <h2>David Buruchara</h2>
-            <p><b>Phone Number:</b></p>
-            <p>1485590234</p>
-            <p><b>Email:</b></p>
-            <p>davidburuchara@gmail.com</p>
-            <button>Edit Contact</button>
-            <button>Delete</button>
-          </figure>
-    
-          <figure>
-            <h2>Brad Thomas</h2>
-            <p><b>Phone Number:</b></p>
-            <p>1482290234</p>
-            <p><b>Email:</b></p>
-            <p>bradthomas@gmail.com</p>
-            <button>Edit Contact</button>
-            <button>Delete</button>
-          </figure>
+          <script id='template-contacts' type="text/x-handlebars-template"> 
+           <h2>HI THERE</h2>
+          {{#each context}}
+            <figure>
+              <h2>{{fullName}}</h2>
+              <p><b>Phone Number:</b></p>
+              <p>{{number}}</p>
+              <p><b>Email:</p></b>
+              <p>{{email}}</p>
+              <button>Edit Contact</button>
+              <button>Delete</button>
+            </figure>
+           {{/each}}
           </script>
         </div>
       </main>
@@ -98,4 +77,5 @@
     </div>
   
   </body>
+  <script src='javascripts/functionality.js'></script>
 </html>
