@@ -30,8 +30,8 @@
         </div>
       </main>
   
-      <div id='overlay'>
-        <h2 id='title-change-page'>{{verb}} Contact</h2>
+      <div id='overlay' class='hide'>
+        <h2 id='title-change'></h2>
         <form>
           <p>
             <label for='name' required>Full name:</label>
@@ -67,12 +67,18 @@
   <script id='template-contacts' type="text/x-handlebars-template"> 
     {{#each context}}
        <figure>
-         <h2>{{fullName}}</h2>
+         <h2>{{full_name}}</h2>
          <p><b>Phone Number:</b></p>
-         <p>{{number}}</p>
+         <p>{{phone_number}}</p>
          <p><b>Email:</p></b>
          <p>{{email}}</p>
-         <button>Edit Contact</button>
+         <p><b>Tags:</p></b>
+         {{#if tags}}
+           <p>{{#join tags}}</p>
+           {{/join}}
+         {{/if}}
+         <br><br>
+         <button class='edit'>Edit Contact</button>
          <button>Delete</button>
        </figure>
      {{/each}}

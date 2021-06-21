@@ -111,7 +111,12 @@ Overlay Div
   - When a tag is selected, filter the displayed contacts on the page
 
 ## JavaScript
-√ Render contacts dynamically 
+√ Render contacts using Handlebars
+√ Add Contact button displays add contact page
+√ Cancel button on add contage page hides the overlay and returns user to home page
+√ Render contacts dynamically from the server & using Handlebars (still)
+√ Edit Contact button displays edit contact page (sans information it should)
+
 - Play around with contact objects
 - Made line 34 on index.html to try to make it change with the appropriate verb
   Maybe wait on this for later...?

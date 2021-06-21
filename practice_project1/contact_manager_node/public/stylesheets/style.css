@@ -38,6 +38,9 @@ main, #overlay{
   width: 100%;
   z-index: 1;
   padding: 30px;
+}
+
+.hide {
   display: none;
 }
 
@@ -80,7 +83,7 @@ figure {
   padding: 10px;
 }
 
-button:focus {
+button:active {
   outline: #196619 solid 5px;
 }
 
