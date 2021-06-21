@@ -1,15 +1,3 @@
-/*
-Contact object
-- constructor
-  - collection of contacts
-  - collection of tag names
-- add contact
-- add tag
-- retrieve contact by name
-- retrieve contact by tag
-- delete contact by id
-*/
-
 document.addEventListener('DOMContentLoaded', () => {
   //Templates
   const scriptContacts = document.querySelector('#template-contacts');
@@ -76,7 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const addContact = ((newContactData) => {
     let fetchData = {
       method: 'POST',
-    }
+      data: JSON.stringify({
+        full_name: 'Callie Williams',
+        email: 'exampleexample',
+        phone_number: 'o1293912',
+        tags: 'hi, there'}),
+      header: {'Content-type': 'application/json'}
+    };
+
+    console.log(JSON.stringify(fetchData.data))
     
     fetch('http://localhost:3000/api/contacts', fetchData)
       .then(response => response.text())
