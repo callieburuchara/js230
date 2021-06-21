@@ -104,10 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // add contact function 
   const addContact = ((newContactData) => {
-    let request = new XMLHttpRequest();
-    request.open('POST', 'http://localhost:3000/api/contacts');
-    let data = {full_name: 'Callie Williams'};
-    request.send(data);
+    let fetchData = {
+      method: 'POST',
+    }
+    
+    fetch('http://localhost:3000/api/contacts', fetchData)
+      .then(response => response.text())
+      .then(console.log)
         
     getContacts();
   });
