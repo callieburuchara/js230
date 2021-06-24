@@ -33,14 +33,30 @@ class Model {
     return id;
   } 
 
-  editContact() {
-    // not sure how to do this one yet. 
+  editContact(json) {
+    let request = new XMLHttpRequest();
+    request.open('PUT', `http://localhost:3000/api/contacts/${json.id}`);
+    request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    request.send(JSON.stringify(json));
+    return request;
   }
 
-  validateNewContact(formData) {
+  validateNewContact(formData, id) {
     let object = {};
     formData.forEach((value, key) => object[key] = value);
+    if (id) object['id'] = id;
     return JSON.stringify(object);
+  }
+
+  getAllTags(contacts) {
+    let tags = [...new Set(contacts.map(contact => contact.tags))];
+    let allTags = [];
+
+    for (let idx = 0; idx < tags.length; idx += 1) {
+      allTags.push({'tags': tags[idx]})
+    }
+    this.tags = allTags;
+    return allTags;
   }
 }
 
@@ -59,14 +75,16 @@ class View {
     this.addEditForm = document.querySelector('form');
     this.searchBar = document.querySelector('#search');
     this.createTagButton = document.querySelector('#create-tag');
+    this.tagsHomepage = document.querySelector('#tag-display');
+    this.tagsOverlay = document.querySelector('#tag-options-display');
   }
 
   _registerHandlebars() {
     let scriptContacts = document.querySelector('#template-contacts');
     this.templateContacts = Handlebars.compile(scriptContacts.innerHTML);
-
-    let scriptOverlay = document.querySelector('#template-overlay-contacts');
-    this.templateOverlayContacts = Handlebars.compile(scriptOverlay.innerHTML);
+  
+    let scriptTagsDisplay = document.querySelector('#template-tags-display');
+    this.templateTagDisplay = Handlebars.compile(scriptTagsDisplay.innerHTML);
 
     Handlebars.registerHelper('join', function(string) {
       return string.split(',').map(word => {
@@ -80,6 +98,12 @@ class View {
     this.contactsDiv.innerHTML = compiledHTML;
   }
 
+  displayTags(tags) {
+    let compiledHTML = this.templateTagDisplay(tags);
+    this.tagsHomepage.innerHTML = compiledHTML;
+    this.tagsOverlay.innerHTML = compiledHTML;
+  }
+
   retrieveNewContactInfo() {
     return new FormData(this.addEditForm);
   }
@@ -89,22 +113,21 @@ class View {
     this.addEditTitle.innerHTML = 'Add Contact';
   }
 
-  showEditContactPage(event) {
-    this.addEditOverlayDiv.classList.toggle('hide');
+  showEditContactPage() {
     this.addEditTitle.innerHTML = 'Edit Contact';
-    // show the data 
+    this.addEditOverlayDiv.classList.toggle('hide');
   }
 
   hideOverlay() {
     this.addEditOverlayDiv.classList.toggle('hide');
-  }
-
-  resetForm() {
     this.addEditForm.reset();
   }
 
   prepopulateContactForm(json) {
-    
+    this.addEditForm.querySelector('[name=full_name]').value = json.full_name;
+    this.addEditForm.querySelector('[name=email]').value = json.email;
+    this.addEditForm.querySelector('[name=phone_number]').value = json.phone_number;
+    // Handle Tags
   }
 }
 
@@ -112,16 +135,20 @@ class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-    this.getAndDisplayContacts();
+    this.refreshDisplays();
     this._registerListeners();
+    this.selectedContactID;
+    this.currentTags;
   }
 
-  getAndDisplayContacts() {
+  refreshDisplays() {
     let request = this.model.getContacts();
     
     request.addEventListener('load', event => {
       this.model.contacts = JSON.parse(request.response);
       this.view.displayContacts({context: this.model.contacts});
+      this.currentTags = this.model.getAllTags(this.model.contacts);
+      this.view.displayTags({context: this.currentTags});
     });
   }
 
@@ -130,7 +157,6 @@ class Controller {
       this.view.showAddContactPage();
     } else {
       this.view.showEditPage();
-      // this part is incomplete, see above in showEditContactPage
     }
   }
 
@@ -144,14 +170,11 @@ class Controller {
   }
 
   addContact(event) {
-    event.preventDefault();
-
     let data = this.view.retrieveNewContactInfo();
     let jsonData = this.model.validateNewContact(data);
     this.model.addContact(jsonData); 
     this.removeOverlay(event);
-    this.view.resetForm();
-    this.getAndDisplayContacts();
+    this.refreshDisplays()
     return jsonData;
   }
 
@@ -159,7 +182,7 @@ class Controller {
     if (event.target.tagName !== 'BUTTON') return;
     if (event.target.classList.contains('edit')) {
       this.view.showEditContactPage(event);
-      this.editContact(event); 
+      this.handleEditContactButton(event); 
     } else {
       this.deleteContact(event);
     }
@@ -169,31 +192,60 @@ class Controller {
     let id = event.target.closest('figure').id;
     if (confirm("Are you sure you'd like to delete this contact?")) {
       this.model.deleteContact(id);
-      this.getAndDisplayContacts();
+      this.refreshDisplays();
     }
   }
 
-  editContact(event) {
+  handleEditContactButton(event) {
     let id = event.target.closest('figure').id;
+    this.selectedContactID = id; // trying to save the contact id early enough for later use for submit event
     let contactRequest = this.model.getSingleContact(id);
 
     contactRequest.addEventListener('load', () => {
       let contact = JSON.parse(contactRequest.response);
-      debugger;
+      this.view.prepopulateContactForm(contact);
     });
-    // find the object closest via id
-    // set the value attributes of each input
-    // upon submission..?
+  }
 
+  handleSubmitEvent(event) {
+    event.preventDefault();
+    
+    if (this.view.addEditTitle.innerHTML.includes('Add')) {
+      this.addContact(event);
+    } else {
+      this.editContact(event);
+    }
+  }
+
+  editContact(event) {
+    let data = this.view.retrieveNewContactInfo();
+    let json = this.model.validateNewContact(data, this.selectedContactID);
+    let request = this.model.editContact(JSON.parse(json));
+
+    request.addEventListener('load', () => {
+      this.refreshDisplays();
+      this.view.hideOverlay();
+    });
   }
 
   createTag(event) {
-
+    let tag = prompt('What tag would you like to add?');
+    // it's working to get the tag
+    // but how to add this as a tag option?
+    // maybe use Model to keep a running list of tags and use its own method to reset that? but also allow it to be added to from here?
+    // It could work, but then every time we fetch all the tags in the API, it'll need to be reset
+    // Maybe the best thing to do is to allow for the creation of tags only when adding or editing a contact? and doing it from there?
+    // then it's always attached to a contact, and no floating/unused tags are allowed. 
+    //
+    // Maaaybe, have a add a tag button at the bottom of add/edit page
+    // then use prompt to get the tag
+    // then immediately add it as an option. Still not sure how to do that. But think through that. 
+    debugger;
   }
 
   _registerListeners() {
     this.view.addContactButton.addEventListener('click', event => this.showAddEditOverlay(event)); // done
-    this.view.addEditForm.addEventListener('submit', event => this.addContact(event));
+    this.view.addEditForm.addEventListener('submit', event => this.handleSubmitEvent(event));
     this.view.cancelButton.addEventListener('click', event => this.removeOverlay(event)); // done
     this.view.searchBar.addEventListener('keypress', event => this.filterBySearch(event));
     this.view.contactsDiv.addEventListener('click', event => this.contactButtonClicks(event));

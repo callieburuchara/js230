@@ -144,7 +144,7 @@ Overlay Div
 √ Display contacts
 √ Add Contact
 √ Delete Contact
-- Edit Contact
+√ Edit Contact
 - Create Tag
 - Search Bar
 - Filter By Tag

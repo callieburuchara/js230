@@ -4,20 +4,13 @@
     "full_name": "Victor Reyes",
     "email": "vpr@example.com",
     "phone_number": "09876543210",
-    "tags": "work,friend"
+    "tags": "None"
   },
   {
     "id": 3,
-    "full_name": "Pete Hanson",
+    "full_name": "Peterson Hanson",
     "email": "ph@example.com",
     "phone_number": "54321098761",
-    "tags": null
-  },
-  {
-    "full_name": "Callie Williams",
-    "phone_number": "3016670191",
-    "email": "calle.buruchara@hey.com",
-    "tags": "None",
-    "id": 4
+    "tags": "None"
   }
 ]

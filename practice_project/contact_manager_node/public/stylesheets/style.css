@@ -6,6 +6,11 @@ h1, h2 {
   text-align: center;
 }
 
+h3 {
+  padding-top: 20px;
+  font-size: 23px;
+}
+
 header {
   background: #A2DA98;
   padding: 20px;
@@ -29,7 +34,7 @@ main, #overlay{
   margin: auto;
 }
 
-#top-buttons *  {
+#top-buttons button  {
   margin: 0 20px 0 20px;
 }
 
@@ -89,4 +94,20 @@ button:active {
 
 #search {
   font-size: 23px;
+}
+
+.tag-option {
+  font-size: 20px;
+  margin-right: 20px;
+  padding: 8px;
+  outline: 1px solid #afcc93;
+}
+
+.tag-option label {
+  margin-right: 0px; 
+}
+
+#tag-options-display .tag-option {
+  font-size: 18px;
+  display: block;
 }
