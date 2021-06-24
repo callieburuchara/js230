@@ -120,3 +120,31 @@ Overlay Div
 - Play around with contact objects
 - Made line 34 on index.html to try to make it change with the appropriate verb
   Maybe wait on this for later...?
+
+
+# -------------------------- Organization ---------------------------------
+- Model:
+  - keep running list of contacts
+  - add a contact to the list
+  - delete a contact from the list
+  - edit a contact from the list
+  - keep running list of tags
+- View:
+  - display correct edit/add contact page or add tag page
+  - display home page or edit/add page
+  - display all contacts
+  - deal with the Handlebars stuff
+  - keep a variable record of all of the different items (submitButton, cancelButton, contactsSection, etc.)
+- Controller: 
+  - event listeners
+  - communicate between model and view
+  - add all of the event listeners. 
+
+# -------------------------- Todo ---------------------------------
+√ Display contacts
+√ Add Contact
+√ Delete Contact
+- Edit Contact
+- Create Tag
+- Search Bar
+- Filter By Tag

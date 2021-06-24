@@ -62,23 +62,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // add contact function 
   const addContact = ((newContactData) => {
+    let request = new XMLHttpRequest();
+    request.open('POST', 'http://localhost:3000/api/contacts/');
+    request.setRequestHeader('Content-Type', 'application/json');
+
     let fetchData = {
-      method: 'POST',
-      data: JSON.stringify({
         full_name: 'Callie Williams',
         email: 'exampleexample',
         phone_number: 'o1293912',
-        tags: 'hi, there'}),
-      header: {'Content-type': 'application/json'}
+        tags: 'hi, there'
     };
 
-    console.log(JSON.stringify(fetchData.data))
+    request.send(JSON.stringify(fetchData));
     
-    fetch('http://localhost:3000/api/contacts', fetchData)
-      .then(response => response.text())
-      .then(console.log)
-        
-    getContacts();
+    //fetch("http://localhost:3000/api/contacts", {method: "POST"})
+    //fetch('http://localhost:3000/api/contacts/', fetchData);
+     //.then(response => getContacts());
   });
   
   /*
@@ -91,7 +90,4 @@ document.addEventListener('DOMContentLoaded', () => {
       */
 
   getContacts();
-
-
-
 });
