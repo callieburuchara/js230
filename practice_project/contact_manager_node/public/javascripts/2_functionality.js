@@ -105,6 +105,10 @@ class View {
     this.addEditForm.querySelector('[name=email]').value = json.email;
     this.addEditForm.querySelector('[name=phone_number]').value = json.phone_number;
   }
+
+  searchBarInput() {
+    return this.searchBar.value;
+  }
 }
 
 class Controller {
@@ -139,6 +143,9 @@ class Controller {
   }
 
   filterBySearch(event) {
+    let searchTerm = this.view.searchBarInput();
+    let selectedContacts = this.model.contacts.filter(contact => contact['full_name'].toLowerCase().includes(searchTerm.toLowerCase()));
+    this.view.displayContacts({context: selectedContacts});
   }
 
   addContact(event) {
@@ -170,7 +177,7 @@ class Controller {
 
   handleEditContactButton(event) {
     let id = event.target.closest('figure').id;
-    this.selectedContactID = id; // trying to save the contact id early enough for later use for submit event
+    this.selectedContactID = id; 
     let contactRequest = this.model.getSingleContact(id);
 
     contactRequest.addEventListener('load', () => {
@@ -204,7 +211,8 @@ class Controller {
     this.view.addContactButton.addEventListener('click', event => this.showAddEditOverlay(event)); // done
     this.view.addEditForm.addEventListener('submit', event => this.handleSubmitEvent(event));
     this.view.cancelButton.addEventListener('click', event => this.removeOverlay(event)); // done
-    this.view.searchBar.addEventListener('keypress', event => this.filterBySearch(event));
+    this.view.searchBar.addEventListener('keyup', event => this.filterBySearch(event));
+    this.view.searchBar.addEventListener('keydown', event => this.filterBySearch(event));
     this.view.contactsDiv.addEventListener('click', event => this.contactButtonClicks(event));
   }
 }
