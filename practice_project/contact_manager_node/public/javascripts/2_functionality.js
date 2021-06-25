@@ -55,6 +55,7 @@ class Model {
     for (let idx = 0; idx < tags.length; idx += 1) {
       allTags.push({'tags': tags[idx]})
     }
+    
     this.tags = allTags;
     return allTags;
   }
@@ -100,6 +101,7 @@ class View {
 
   displayTags(tags) {
     let compiledHTML = this.templateTagDisplay(tags);
+    debugger;
     this.tagsHomepage.innerHTML = compiledHTML;
     this.tagsOverlay.innerHTML = compiledHTML;
   }
@@ -138,7 +140,6 @@ class Controller {
     this.refreshDisplays();
     this._registerListeners();
     this.selectedContactID;
-    this.currentTags;
   }
 
   refreshDisplays() {
@@ -150,6 +151,10 @@ class Controller {
       this.currentTags = this.model.getAllTags(this.model.contacts);
       this.view.displayTags({context: this.currentTags});
     });
+  }
+
+  addATag(tag) {
+    this.view.push(tag);
   }
 
   showAddEditOverlay(event) {
@@ -229,14 +234,10 @@ class Controller {
   }
 
   createTag(event) {
+    event.preventDefault();
     let tag = prompt('What tag would you like to add?');
-    // it's working to get the tag
-    // but how to add this as a tag option?
-    // maybe use Model to keep a running list of tags and use its own method to reset that? but also allow it to be added to from here?
-    // It could work, but then every time we fetch all the tags in the API, it'll need to be reset
-    // Maybe the best thing to do is to allow for the creation of tags only when adding or editing a contact? and doing it from there?
-    // then it's always attached to a contact, and no floating/unused tags are allowed. 
-    //
+    this.addATag({'tags': tag});
+    this.view.displayTags(this.currentTags);
     // Maaaybe, have a add a tag button at the bottom of add/edit page
     // then use prompt to get the tag
     // then immediately add it as an option. Still not sure how to do that. But think through that. 

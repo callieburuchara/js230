@@ -81,11 +81,15 @@ figure {
   padding-bottom: 40px;
 }
 
-#add-contact,
-#create-tag {
+#add-contact {
   font-size: 23px;
   border-radius: 6%;
   padding: 10px;
+}
+
+#create-tag {
+  margin-top: 15px;
+  background: #afcc93;
 }
 
 button:active {
