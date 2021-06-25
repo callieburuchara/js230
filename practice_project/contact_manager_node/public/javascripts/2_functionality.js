@@ -1,7 +1,6 @@
 class Model {
   constructor() {
     this.getContacts();
-    this.tags = [];
   }
 
   getSingleContact(id) {
@@ -47,18 +46,6 @@ class Model {
     if (id) object['id'] = id;
     return JSON.stringify(object);
   }
-
-  getAllTags(contacts) {
-    let tags = [...new Set(contacts.map(contact => contact.tags))];
-    let allTags = [];
-
-    for (let idx = 0; idx < tags.length; idx += 1) {
-      allTags.push({'tags': tags[idx]})
-    }
-    
-    this.tags = allTags;
-    return allTags;
-  }
 }
 
 class View {
@@ -75,18 +62,12 @@ class View {
     this.contactsDiv = document.querySelector('#contacts');
     this.addEditForm = document.querySelector('form');
     this.searchBar = document.querySelector('#search');
-    this.createTagButton = document.querySelector('#create-tag');
-    this.tagsHomepage = document.querySelector('#tag-display');
-    this.tagsOverlay = document.querySelector('#tag-options-display');
   }
 
   _registerHandlebars() {
     let scriptContacts = document.querySelector('#template-contacts');
     this.templateContacts = Handlebars.compile(scriptContacts.innerHTML);
   
-    let scriptTagsDisplay = document.querySelector('#template-tags-display');
-    this.templateTagDisplay = Handlebars.compile(scriptTagsDisplay.innerHTML);
-
     Handlebars.registerHelper('join', function(string) {
       return string.split(',').map(word => {
         return word[0].toUpperCase() + word.slice(1);
@@ -99,12 +80,6 @@ class View {
     this.contactsDiv.innerHTML = compiledHTML;
   }
 
-  displayTags(tags) {
-    let compiledHTML = this.templateTagDisplay(tags);
-    debugger;
-    this.tagsHomepage.innerHTML = compiledHTML;
-    this.tagsOverlay.innerHTML = compiledHTML;
-  }
 
   retrieveNewContactInfo() {
     return new FormData(this.addEditForm);
@@ -129,7 +104,6 @@ class View {
     this.addEditForm.querySelector('[name=full_name]').value = json.full_name;
     this.addEditForm.querySelector('[name=email]').value = json.email;
     this.addEditForm.querySelector('[name=phone_number]').value = json.phone_number;
-    // Handle Tags
   }
 }
 
@@ -148,13 +122,7 @@ class Controller {
     request.addEventListener('load', event => {
       this.model.contacts = JSON.parse(request.response);
       this.view.displayContacts({context: this.model.contacts});
-      this.currentTags = this.model.getAllTags(this.model.contacts);
-      this.view.displayTags({context: this.currentTags});
     });
-  }
-
-  addATag(tag) {
-    this.view.push(tag);
   }
 
   showAddEditOverlay(event) {
@@ -171,7 +139,6 @@ class Controller {
   }
 
   filterBySearch(event) {
-
   }
 
   addContact(event) {
@@ -233,30 +200,15 @@ class Controller {
     });
   }
 
-  createTag(event) {
-    event.preventDefault();
-    let tag = prompt('What tag would you like to add?');
-    this.addATag({'tags': tag});
-    this.view.displayTags(this.currentTags);
-    // Maaaybe, have a add a tag button at the bottom of add/edit page
-    // then use prompt to get the tag
-    // then immediately add it as an option. Still not sure how to do that. But think through that. 
-    debugger;
-  }
-
   _registerListeners() {
     this.view.addContactButton.addEventListener('click', event => this.showAddEditOverlay(event)); // done
     this.view.addEditForm.addEventListener('submit', event => this.handleSubmitEvent(event));
     this.view.cancelButton.addEventListener('click', event => this.removeOverlay(event)); // done
     this.view.searchBar.addEventListener('keypress', event => this.filterBySearch(event));
     this.view.contactsDiv.addEventListener('click', event => this.contactButtonClicks(event));
-    this.view.createTagButton.addEventListener('click', event => this.createTag(event));
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Controller(new Model(), new View());
 });
-
-// To do
-//

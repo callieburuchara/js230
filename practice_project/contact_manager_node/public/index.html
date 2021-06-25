@@ -19,9 +19,6 @@
         <div id='top-buttons'>
           <button id='add-contact'>Add Contact</button>
           <input id='search' type='text' placeholder='Search'>
-          <br>
-          <h3>Filter by Tag:</h3>
-          <div id='tag-display'></div>
         </div>
     
         <div id='contacts'>
@@ -44,10 +41,6 @@
             <input type='text' name='phone_number'>
           </p>
 
-          <h4>Select All Tags that Apply:</h4>
-          <div id='tag-options-display'>
-          </div>        
-          <button id='create-tag'>Create Tag</button>
           <p>
             <button type='submit'>Submit</button>
             <button type='cancel'>Cancel</button>
@@ -66,26 +59,9 @@
          <p>{{phone_number}}</p>
          <p><b>Email:</p></b>
          <p>{{email}}</p>
-         <p><b>Tags:</p></b>
-         {{#if tags}}
-           <p>{{#join tags}}</p>
-           {{/join}}
-         {{/if}}
-         <br><br>
          <button class='edit'>Edit Contact</button>
          <button>Delete</button>
        </figure>
      {{/each}}
-   </script>
-
-   <script id='template-tags-display' type="text/x-handlebars-template">
-     {{#each context}}
-      <span class='tag-option'>
-       <label for={{tags}}>
-         <input type='checkbox' id={{tags}} name={{tags}}/>{{tags}}
-       </label>
-      </span>
-     {{/each}}
-     
    </script>
 </html>

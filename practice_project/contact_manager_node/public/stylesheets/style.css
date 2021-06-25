@@ -87,31 +87,10 @@ figure {
   padding: 10px;
 }
 
-#create-tag {
-  margin-top: 15px;
-  background: #afcc93;
-}
-
 button:active {
   outline: #196619 solid 5px;
 }
 
 #search {
   font-size: 23px;
-}
-
-.tag-option {
-  font-size: 20px;
-  margin-right: 20px;
-  padding: 8px;
-  outline: 1px solid #afcc93;
-}
-
-.tag-option label {
-  margin-right: 0px; 
-}
-
-#tag-options-display .tag-option {
-  font-size: 18px;
-  display: block;
 }
