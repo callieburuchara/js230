@@ -67,12 +67,6 @@ class View {
   _registerHandlebars() {
     let scriptContacts = document.querySelector('#template-contacts');
     this.templateContacts = Handlebars.compile(scriptContacts.innerHTML);
-  
-    Handlebars.registerHelper('join', function(string) {
-      return string.split(',').map(word => {
-        return word[0].toUpperCase() + word.slice(1);
-      }).join('   ');
-    });
   }
 
   displayContacts(contacts) {
